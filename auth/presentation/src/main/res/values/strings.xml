@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="already_a_customer_sign_in">Already a customer? Sign in</string>
+    <string name="new_to_amazon_in_create_an_account">New to Amazon.in? Create an Account</string>
+    <string name="skip_sign_in">Skip sign in</string>
+    <string name="sign_in_to_your_account">Sign in to your Account</string>
+    <string name="view_your_wish_list">View your wish list</string>
+    <string name="find_and_render_past_purchases">Find and render past purchases</string>
+    <string name="track_your_purchases">Track Your Purchases</string>
+    <string name="sign_in_or_create_account">Sign in or create account</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="amazon_example_com">amazon@example.com</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="password">password</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="error_email_already_exists">email already exists</string>
+</resources>

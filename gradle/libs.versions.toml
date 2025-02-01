@@ -1,0 +1,145 @@
+[versions]
+agp = "8.7.1"
+coilCompose = "3.0.4"
+kotlin = "2.0.0"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+kotlinxCoroutinesCore = "1.10.1"
+kotlinxSerializationJson = "1.6.3"
+kotlinxSerializationJsonVersion = "1.8.0"
+lifecycleRuntimeKtx = "2.8.6"
+activityCompose = "1.9.3"
+composeBom = "2024.04.01"
+appcompat = "1.7.0"
+material = "1.12.0"
+androidTools = "31.2.2"
+ksp = "2.0.0-1.0.22"
+materialIconsExtendedVersion = "1.7.6"
+navigationComposeVersion = "2.8.5"
+room = "2.6.1"
+desugar_jdk_libs = "2.1.2"
+jetbrainsKotlinJvm = "2.0.0"
+composeCompiler = "1.5.9"
+koin = "4.0.0"
+materialIconsExtended = "1.7.5"
+navigationCompose = "2.8.3"
+ktor = "2.3.8"
+ktorClientLogging = "2.3.8"
+
+# Project versions
+projectApplicationId = "com.sougata.uber"
+projectVersionName = "1.0"
+projectMinSdkVersion = "24"
+projectTargetSdkVersion = "35"
+projectCompileSdkVersion = "35"
+projectVersionCode = "1"
+core = "1.15.0"
+navigationRuntimeKtx = "2.8.5"
+securityCrypto = "1.0.0"
+securityCryptoKtx = "1.0.0"
+
+[libraries]
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-serialization-json-v180 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-material-icons-extended-v176 = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtendedVersion" }
+androidx-navigation-compose-v285 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+koin-android-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+#ktor
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientLogging" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+androidx-security-crypto-ktx = { group = "androidx.security", name = "security-crypto-ktx", version.ref = "securityCryptoKtx" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+uber-android-application = {id = "uber.andoid.application", version = "unspecified"}
+uber-android-library = {id = "uber.android.library", version = "unspecified"}
+uber-android-library-compose = {id = "uber.android.library.compose", version = "unspecified"}
+uber-android-application-compose = {id = "uber.android.application.compose", version = "unspecified"}
+uber-android-feature-ui = {id = "uber.android.feature.ui",version = "unspecified"}
+uber-android-room = {id = "uber.android.room",version = "unspecified"}
+uber-jvm-ktor ={id = "uber.jvm.ktor", version = "unspecified"}
+uber-jvm-library = {id = "uber.jvm.library", version= "unspecified"}
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+room = { id = "androidx.room", version.ref = "room" }
+
+[bundles]
+koin =["koin-android","koin-core","koin-android-workmanager"]
+koin-compose =["koin-android","koin-core","koin-android-workmanager","koin-androidx-compose"]
+
+compose = ["androidx-activity-compose", "androidx-compose-ui", "androidx-compose-ui-graphics",
+    "androidx-compose-ui-tooling-preview", "androidx-compose-material3","androidx-lifecycle-viewmodel-compose",
+    "androidx-lifecycle-runtime-compose", "androidx-navigation-compose"]
+
+compose-debug = [
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-test-manifest",
+]
+
+ktor = [
+    "ktor-client-auth",
+    "ktor-client-cio",
+    "ktor-client-content-negotiation",
+    "ktor-client-core",
+    "ktor-client-logging",
+    "ktor-serialization-kotlinx-json"
+]
+
