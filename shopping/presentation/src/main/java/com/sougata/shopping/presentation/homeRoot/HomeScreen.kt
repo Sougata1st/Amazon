@@ -225,9 +225,7 @@ fun HomeScreenRoot(
 @Composable
 fun HomeScreenPreview() {
     AmazonTheme {
-        Row {
-
-        }
+        HomeScreenRoot(filterClicked = {})
     }
 }
 
