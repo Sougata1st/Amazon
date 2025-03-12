@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pincode_required">Pincode (Required)</string>
+    <string name="state_required">State (Required)</string>
+    <string name="locality_required">Locality (Required)</string>
+    <string name="landmark_required">Landmark (Required)</string>
+    <string name="phone_number_required">Phone number (Required)</string>
+</resources>

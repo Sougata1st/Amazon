@@ -25,12 +25,21 @@ suspend inline fun <reified Response: Any> HttpClient.get(
     queryParameters: Map<String, Any?> = mapOf()
 ): Result<Response, DataError.Network> {
     return safeCall {
-        get {
+        val builder = HttpRequestBuilder().apply {
             url(constructRoute(route, baseUrl = baseUrl))
+            method = HttpMethod.Get
             queryParameters.forEach { (key, value) ->
                 parameter(key, value)
             }
         }
+        println("The curl is \n ${toCurlCommand(builder)}") // Log cURL
+        get(builder)
+//        get {
+//            url(constructRoute(route, baseUrl = baseUrl))
+//            queryParameters.forEach { (key, value) ->
+//                parameter(key, value)
+//            }
+//        }
     }
 }
 
@@ -61,12 +70,22 @@ suspend inline fun <reified Response: Any> HttpClient.delete(
     queryParameters: Map<String, Any?> = mapOf()
 ): Result<Response, DataError.Network> {
     return safeCall {
-        delete {
-            url(constructRoute(route, baseUrl = baseUrl))
-            queryParameters.forEach { (key, value) ->
-                parameter(key, value)
+        val builder = HttpRequestBuilder()
+            .apply {
+                url(constructRoute(route, baseUrl = baseUrl))
+                method = HttpMethod.Delete
+                queryParameters.forEach { (key, value) ->
+                    parameter(key, value)
+                }
             }
-        }
+        println("The curl is \n ${toCurlCommand(builder)}") // Log cURL
+        delete(builder)
+//        delete {
+//            url(constructRoute(route, baseUrl = baseUrl))
+//            queryParameters.forEach { (key, value) ->
+//                parameter(key, value)
+//            }
+//        }
     }
 }
 

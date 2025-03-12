@@ -33,5 +33,5 @@ interface ShopRepository {
         upperPriceBound: Int
         ): EmptyResult<DataError>
 
-    suspend fun getAllFilteredProducts(): Flow<List<Product>>
+    suspend fun getAllFilteredProducts(order: String): Flow<List<Product>>
 }

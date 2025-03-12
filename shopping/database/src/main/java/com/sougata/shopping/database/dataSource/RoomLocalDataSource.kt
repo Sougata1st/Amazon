@@ -151,11 +151,21 @@ class RoomLocalDataSource(
         }
     }
 
-    override fun getFilteredProducts(): Flow<List<Product>> {
-        return dao.getFilteredProducts().map {
-            it.map {
-                it.toProduct()
-            }
+    override fun getFilteredProducts(order : String): Flow<List<Product>> {
+        return if (order.equals("ASC", ignoreCase = true)) {
+            dao.getFilteredProductsAsc()
+                .map {
+                    it.map {
+                        it.toProduct()
+                    }
+                }
+        } else {
+            dao.getFilteredProductsDesc()
+                .map {
+                    it.map {
+                        it.toProduct()
+                    }
+                }
         }
     }
 

@@ -57,7 +57,7 @@ class FilterResultScreenViewModel(
         }
 
         viewModelScope.launch {
-            repository.getAllFilteredProducts().collect {
+            repository.getAllFilteredProducts(sortDirection).collect {
 
                 state = state.copy(
                     products = it.map {

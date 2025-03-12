@@ -211,7 +211,6 @@ fun FilterScreenPreview() {
         }
     }
 }
-
 //category
 //sortDir
 //priceBound

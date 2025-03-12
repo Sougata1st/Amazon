@@ -45,6 +45,7 @@ import com.sougata.core.presentation.designsystem.components.AmazonToolbar
 import com.sougata.shopping.presentation.homeRoot.cart.CartCentreContentScreenRoot
 import com.sougata.shopping.presentation.homeRoot.home.HomeCentreContentRoot
 import com.sougata.shopping.presentation.homeRoot.home.HomeScreenViewModel
+import com.sougata.shopping.presentation.homeRoot.profile.ProfileCentreContentRoot
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -262,7 +263,7 @@ fun CenterContent(index: Int) {
         }
 
         3 -> {
-            Text("Sougata")
+            ProfileCentreContentRoot()
         }
     }
 }

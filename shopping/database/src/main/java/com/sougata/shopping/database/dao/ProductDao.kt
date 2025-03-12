@@ -115,6 +115,12 @@ interface ProductDao {
     @Query("SELECT * FROM FilteredProductEntity")
     fun getFilteredProducts(): Flow<List<FilteredProductEntity>>
 
+    @Query("SELECT * FROM FilteredProductEntity ORDER BY basePrice ASC")
+    fun getFilteredProductsAsc(): Flow<List<FilteredProductEntity>>
+
+    @Query("SELECT * FROM FilteredProductEntity ORDER BY basePrice DESC")
+    fun getFilteredProductsDesc(): Flow<List<FilteredProductEntity>>
+
     @Query("DELETE FROM FilteredProductEntity")
     suspend fun clearAllProducts()
 

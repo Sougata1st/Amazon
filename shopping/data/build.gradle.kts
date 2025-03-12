@@ -13,4 +13,5 @@ dependencies {
     implementation(projects.shopping.domain)
     implementation(projects.shopping.database)
     implementation(libs.bundles.koin)
+    //implementation("com.razorpay:checkout:1.6.40")
 }

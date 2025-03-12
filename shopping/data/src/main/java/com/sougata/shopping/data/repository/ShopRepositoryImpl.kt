@@ -182,7 +182,7 @@ class ShopRepositoryImpl(
         }
     }
 
-    override suspend fun getAllFilteredProducts(): Flow<List<Product>> {
-        return localDataSource.getFilteredProducts()
+    override suspend fun getAllFilteredProducts(order:String): Flow<List<Product>> {
+        return localDataSource.getFilteredProducts(order)
     }
 }

@@ -19,7 +19,7 @@ interface ShopLocalDataSource {
     fun getAllCategories(): Flow<List<ProductCategory>>
     suspend fun saveAllCategories(productCategoryList: List<ProductCategory>) : Result<List<ProductCategory>, DataError.Local>
     suspend fun upsertFilteredProducts(products: List<Product>) : Result<List<Product>, DataError.Local>
-    fun getFilteredProducts(): Flow<List<Product>>
+    fun getFilteredProducts(order: String): Flow<List<Product>>
     suspend fun clearFilterItems()
 
 }
