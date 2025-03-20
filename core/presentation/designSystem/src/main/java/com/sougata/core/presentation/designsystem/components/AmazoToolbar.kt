@@ -98,7 +98,7 @@ fun AmazonToolbarPreview() {
 
         },
         gradientColors = listOf(AmazonToolBarStartColor, AmazonToolBarEndColor),
-        showSearchBar = false
+        showSearchBar = true
     )
 }
 

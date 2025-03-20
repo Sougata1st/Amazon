@@ -1,6 +1,6 @@
 package com.sougata.shopping.presentation.addAdress
 
-import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,32 +12,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddBusiness
-import androidx.compose.material.icons.filled.AddHome
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Business
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Pin
+import androidx.compose.material.icons.outlined.Business
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocationCity
+import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.MyLocation
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -46,7 +45,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.sougata.core.presentation.designsystem.AmazonBlack
 import com.sougata.core.presentation.designsystem.AmazonDarkGrey
 import com.sougata.core.presentation.designsystem.AmazonGrey
@@ -54,7 +52,7 @@ import com.sougata.core.presentation.designsystem.AmazonMediumGrey
 import com.sougata.core.presentation.designsystem.AmazonTextFieldFocusedColor
 import com.sougata.core.presentation.designsystem.AmazonTextFieldUnfocusedColor
 import com.sougata.core.presentation.designsystem.AmazonTheme
-import com.sougata.core.presentation.designsystem.components.AmazonActionButton
+import com.sougata.core.presentation.designsystem.components.AmazonAddressTabItem
 import com.sougata.core.presentation.designsystem.components.AmazonScaffold
 import com.sougata.core.presentation.designsystem.components.AmazonTextField
 import com.sougata.core.presentation.designsystem.components.AmazonToolbar
@@ -233,6 +231,44 @@ private fun AddAddressScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text("Type of address", color = AmazonGrey)
+
+            var selectedTab by rememberSaveable { mutableIntStateOf(1) }
+
+            Row (
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ){
+                AmazonAddressTabItem(
+                    selectedTab = selectedTab,
+                    text = "Home",
+                    imageVector = if (selectedTab == 1) Icons.Filled.Home else Icons.Outlined.Home,
+                    position = 1,
+                    onClick = {
+                        selectedTab = it
+                        AddAddressActions.AddAddressAddressType(AddressTypes.HOME.name)
+                    }
+                )
+                AmazonAddressTabItem(
+                    selectedTab = selectedTab,
+                    text = "Office",
+                    imageVector = if (selectedTab == 1) Icons.Filled.Business else Icons.Outlined.Business,
+                    position = 2,
+                    onClick = {
+                        selectedTab = it
+                        AddAddressActions.AddAddressAddressType(AddressTypes.OFFICE.name)
+                    }
+                )
+                AmazonAddressTabItem(
+                    selectedTab = selectedTab,
+                    text = "Other",
+                    imageVector = if (selectedTab == 1) Icons.Filled.LocationOn else Icons.Outlined.LocationOn,
+                    position = 2,
+                    onClick = {
+                        selectedTab = it
+                        AddAddressActions.AddAddressAddressType(AddressTypes.OTHER.name)
+                    }
+                )
+            }
         }
     }
 }
