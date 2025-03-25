@@ -52,6 +52,8 @@ import com.sougata.core.presentation.designsystem.AmazonMediumGrey
 import com.sougata.core.presentation.designsystem.AmazonTextFieldFocusedColor
 import com.sougata.core.presentation.designsystem.AmazonTextFieldUnfocusedColor
 import com.sougata.core.presentation.designsystem.AmazonTheme
+import com.sougata.core.presentation.designsystem.AmazonYellow
+import com.sougata.core.presentation.designsystem.components.AmazonActionButton
 import com.sougata.core.presentation.designsystem.components.AmazonAddressTabItem
 import com.sougata.core.presentation.designsystem.components.AmazonScaffold
 import com.sougata.core.presentation.designsystem.components.AmazonTextField
@@ -77,6 +79,9 @@ private fun AddAddressScreen(
     state: AddAddressScreenState,
     onAction: (AddAddressActions) -> Unit
 ) {
+
+
+
     AmazonScaffold(
         topBar = {
             AmazonToolbar(
@@ -115,37 +120,35 @@ private fun AddAddressScreen(
                 .padding(it)
                 .padding(16.dp)
         ) {
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                AmazonTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .width(50.dp),
-                    text = state.zipCode,
-                    hint = stringResource(R.string.pincode_required),
-                    textFontColor = AmazonBlack,
-                    hintFontColor = AmazonGrey,
-                    startIconTint = AmazonMediumGrey,
-                    endIconTint = AmazonMediumGrey,
-                    focusColor = AmazonTextFieldFocusedColor,
-                    unfocusedColor = AmazonTextFieldUnfocusedColor,
-                    borderColor = AmazonDarkGrey,
-                    onValueChange = {
-                        onAction(AddAddressActions.AddAddressZipCode(it))
-                    },
-                    isEnabled = true,
-                    keyboardType = KeyboardType.Email,
-                    cursorBrushColor = AmazonDarkGrey,
-                    startIcon = Icons.Default.Pin,
-                    endIcon = null
-                )
 
-                LocationButton(onClick = {}, modifier = Modifier.weight(1f))
-            }
+
 
             AmazonTextField(
                 modifier = Modifier,
                 text = state.zipCode,
+                hint = stringResource(R.string.pincode_required),
+                textFontColor = AmazonBlack,
+                hintFontColor = AmazonGrey,
+                startIconTint = AmazonMediumGrey,
+                endIconTint = AmazonMediumGrey,
+                focusColor = AmazonTextFieldFocusedColor,
+                unfocusedColor = AmazonTextFieldUnfocusedColor,
+                borderColor = AmazonDarkGrey,
+                onValueChange = {
+                    onAction(AddAddressActions.AddAddressZipCode(it))
+                },
+                isEnabled = true,
+                keyboardType = KeyboardType.Email,
+                cursorBrushColor = AmazonDarkGrey,
+                startIcon = Icons.Default.Pin,
+                endIcon = null
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            AmazonTextField(
+                modifier = Modifier,
+                text = state.state,
                 hint = stringResource(R.string.state_required),
                 textFontColor = AmazonBlack,
                 hintFontColor = AmazonGrey,
@@ -168,7 +171,7 @@ private fun AddAddressScreen(
 
             AmazonTextField(
                 modifier = Modifier,
-                text = state.zipCode,
+                text = state.locality,
                 hint = stringResource(R.string.locality_required),
                 textFontColor = AmazonBlack,
                 hintFontColor = AmazonGrey,
@@ -189,7 +192,7 @@ private fun AddAddressScreen(
             Spacer(modifier = Modifier.height(16.dp))
             AmazonTextField(
                 modifier = Modifier,
-                text = state.zipCode,
+                text = state.landmark,
                 hint = stringResource(R.string.landmark_required),
                 textFontColor = AmazonBlack,
                 hintFontColor = AmazonGrey,
@@ -210,7 +213,7 @@ private fun AddAddressScreen(
             Spacer(modifier = Modifier.height(16.dp))
             AmazonTextField(
                 modifier = Modifier,
-                text = state.zipCode,
+                text = state.phoneNumber,
                 hint = stringResource(R.string.phone_number_required),
                 textFontColor = AmazonBlack,
                 hintFontColor = AmazonGrey,
@@ -261,14 +264,27 @@ private fun AddAddressScreen(
                 AmazonAddressTabItem(
                     selectedTab = selectedTab,
                     text = "Other",
-                    imageVector = if (selectedTab == 1) Icons.Filled.LocationOn else Icons.Outlined.LocationOn,
-                    position = 2,
+                    imageVector = if (selectedTab == 3) Icons.Filled.LocationOn else Icons.Outlined.LocationOn,
+                    position = 3,
                     onClick = {
                         selectedTab = it
                         AddAddressActions.AddAddressAddressType(AddressTypes.OTHER.name)
                     }
                 )
             }
+            Spacer(Modifier.height(10.dp))
+            AmazonActionButton(
+                text = "Save address",
+                modifier = Modifier.fillMaxWidth(),
+                isLoading = state.isSavingAddress,
+                isEnabled = true,
+                containerColor = AmazonYellow,
+                contentColor = AmazonBlack,
+                onClick = {
+                    AddAddressActions.AddAddressClicked
+                },
+                progressbarSize = 20.dp
+            )
         }
     }
 }

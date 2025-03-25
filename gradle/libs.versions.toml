@@ -18,6 +18,7 @@ androidTools = "31.2.2"
 ksp = "2.0.0-1.0.22"
 materialIconsExtendedVersion = "1.7.6"
 navigationComposeVersion = "2.8.5"
+playServicesLocation = "21.3.0"
 room = "2.6.1"
 desugar_jdk_libs = "2.1.2"
 jetbrainsKotlinJvm = "2.0.0"
@@ -43,6 +44,7 @@ securityCryptoKtx = "1.0.0"
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json-v180 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

@@ -6,10 +6,13 @@ import com.sougata.core.domain.util.Result
 import com.sougata.shopping.database.dao.ProductDao
 import com.sougata.shopping.database.entity.ProductCategoryEntity
 import com.sougata.shopping.database.entity.ProductEntryEntity
+import com.sougata.shopping.database.mappers.toAddressEntity
+import com.sougata.shopping.database.mappers.toAddressResponse
 import com.sougata.shopping.database.mappers.toFilteredProductEntity
 import com.sougata.shopping.database.mappers.toProduct
 import com.sougata.shopping.database.mappers.toProductEntity
 import com.sougata.shopping.domain.dataSource.ShopLocalDataSource
+import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.models.ProductCategory
@@ -149,6 +152,28 @@ class RoomLocalDataSource(
         }catch (e: SQLiteException){
             return Result.Error(DataError.Local.DISK_FULL)
         }
+    }
+
+    override fun getAllAddress(): Flow<List<AddressResponse>> {
+        return dao.getAllAddresses().map {
+            it.map {
+                it.toAddressResponse()
+            }
+        }
+    }
+
+    override suspend fun addAddress(address: AddressResponse): Result<AddressResponse, DataError.Local> {
+        return try {
+            dao.addAddress(address.toAddressEntity())
+            Result.Success(address)
+        }catch (e: SQLiteException){
+            return Result.Error(DataError.Local.DISK_FULL)
+        }
+    }
+
+
+    override suspend fun deleteAddress(addressId: Int) {
+        dao.deleteAddress(addressId)
     }
 
     override fun getFilteredProducts(order : String): Flow<List<Product>> {

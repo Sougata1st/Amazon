@@ -5,4 +5,7 @@
     <string name="locality_required">Locality (Required)</string>
     <string name="landmark_required">Landmark (Required)</string>
     <string name="phone_number_required">Phone number (Required)</string>
+    <string name="permission_required">Permission required</string>
+    <string name="in_order_to_fetch_your_location_this_app_needs_location_permission_please_click_ok_to_allow_it">In order to fetch your location this app needs Location Permission, please click ok to allow it</string>
+    <string name="okay">Okay</string>
 </resources>

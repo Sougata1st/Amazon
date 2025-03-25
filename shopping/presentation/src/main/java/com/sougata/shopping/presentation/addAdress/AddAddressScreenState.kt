@@ -6,7 +6,8 @@ data class AddAddressScreenState(
     val state: String = "",
     val zipCode: String = "",
     val addressType: String = "",
-    val phoneNumber: String = ""
+    val phoneNumber: String = "",
+    val isSavingAddress: Boolean = false
 )
 
 

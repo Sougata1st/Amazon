@@ -2,6 +2,7 @@ package com.sougata.shopping.domain.dataSource
 
 import com.sougata.core.domain.util.DataError
 import com.sougata.core.domain.util.Result
+import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCategory
 import com.sougata.shopping.domain.models.ProductEntry
@@ -19,6 +20,9 @@ interface ShopLocalDataSource {
     fun getAllCategories(): Flow<List<ProductCategory>>
     suspend fun saveAllCategories(productCategoryList: List<ProductCategory>) : Result<List<ProductCategory>, DataError.Local>
     suspend fun upsertFilteredProducts(products: List<Product>) : Result<List<Product>, DataError.Local>
+    fun getAllAddress(): Flow<List<AddressResponse>>
+    suspend fun addAddress(address: AddressResponse): Result<AddressResponse, DataError.Local>
+    suspend fun deleteAddress(addressId: Int)
     fun getFilteredProducts(order: String): Flow<List<Product>>
     suspend fun clearFilterItems()
 

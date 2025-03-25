@@ -34,12 +34,6 @@ suspend inline fun <reified Response: Any> HttpClient.get(
         }
         println("The curl is \n ${toCurlCommand(builder)}") // Log cURL
         get(builder)
-//        get {
-//            url(constructRoute(route, baseUrl = baseUrl))
-//            queryParameters.forEach { (key, value) ->
-//                parameter(key, value)
-//            }
-//        }
     }
 }
 

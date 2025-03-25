@@ -1,5 +1,6 @@
 package com.sougata.amazon
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,6 +11,7 @@ import com.sougata.auth.presentation.forgot_pass.send_and_verify_otp.SendOtpScre
 import com.sougata.auth.presentation.intro.IntroScreenRoot
 import com.sougata.auth.presentation.login.LoginScreenRoot
 import com.sougata.auth.presentation.register.RegisterScreenRoot
+import com.sougata.shopping.presentation.addAdress.AddAddressScreenRoot
 import com.sougata.shopping.presentation.filter.FilterScreenRoot
 import com.sougata.shopping.presentation.filterResult.FilterResultScreenRoot
 import com.sougata.shopping.presentation.homeRoot.HomeScreenRoot
@@ -94,21 +96,39 @@ private fun NavGraphBuilder.shopGraph(navHostController: NavHostController) {
         HomeScreenRoot(
             filterClicked = {
                 navHostController.navigate(ShopRoutes.FilterScreen)
-            }
+            },
+            addAddressClicked = {
+                navHostController.navigate(ShopRoutes.AddAddressScreen)
+                Log.d("Sougata","Navigated")
+            },
+            showAddressesClicked = { }
         )
     }
 
     composable<ShopRoutes.FilterScreen> {
-        FilterScreenRoot(onBackClick = {navHostController.navigateUp()}, navigateToFilterResultScreen = {
-            category, sortBy, sortDir, priceRange ->
-            navHostController.navigate(ShopRoutes.FilterResultScreen(category, sortBy, sortDir, priceRange.start.toInt(), priceRange.endInclusive.toInt())){
-                popUpTo(ShopRoutes.FilterScreen){
-                    inclusive = true
+        FilterScreenRoot(
+            onBackClick = { navHostController.navigateUp() },
+            navigateToFilterResultScreen = { category, sortBy, sortDir, priceRange ->
+                navHostController.navigate(
+                    ShopRoutes.FilterResultScreen(
+                        category,
+                        sortBy,
+                        sortDir,
+                        priceRange.start.toInt(),
+                        priceRange.endInclusive.toInt()
+                    )
+                ) {
+                    popUpTo(ShopRoutes.FilterScreen) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
                 }
-                launchSingleTop = true
-                restoreState = true
-            }
-        })
+            })
+    }
+
+    composable<ShopRoutes.AddAddressScreen> {
+        AddAddressScreenRoot(onBackClick = { navHostController.navigateUp() })
     }
 
     composable<ShopRoutes.FilterResultScreen> {
@@ -149,7 +169,10 @@ sealed class ShopRoutes {
         val sortDirection: String,
         val lowerPriceBound: Int,
         val upperPriceBound: Int
-    ): ShopRoutes()
+    ) : ShopRoutes()
+
+    @Serializable
+    data object AddAddressScreen : ShopRoutes()
 }
 
 

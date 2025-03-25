@@ -6,6 +6,8 @@ import com.sougata.core.domain.util.Result
 import com.sougata.core.domain.util.asEmptyDataResult
 import com.sougata.shopping.domain.dataSource.ShopLocalDataSource
 import com.sougata.shopping.domain.dataSource.ShopRemoteDataSource
+import com.sougata.shopping.domain.models.Address
+import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.models.ProductCategory
@@ -55,6 +57,7 @@ class ShopRepositoryImpl(
                 pageSize = pageSize
             )
         }.await()
+
 
 
         return when (result) {
@@ -153,6 +156,37 @@ class ShopRepositoryImpl(
 
     override suspend fun clearFilterItems() {
        localDataSource.clearFilterItems()
+    }
+
+    override fun getAllAddress(): Flow<List<AddressResponse>> {
+        return localDataSource.getAllAddress()
+    }
+
+    override suspend fun addAddress(address: Address): EmptyResult<DataError> {
+        val result = applicationScope.async { remoteDataSource.addAddress(address)}.await()
+        return when(result){
+            is Result.Error -> {
+                result.asEmptyDataResult()
+            }
+            is Result.Success -> {
+                applicationScope.async {
+                    localDataSource.addAddress(result.data)
+                }.await().asEmptyDataResult()
+            }
+        }
+    }
+
+    override suspend fun deleteAddress(addressId: String): EmptyResult<DataError> {
+        val result = applicationScope.async { remoteDataSource.deleteAddress(addressId) }.await()
+        return when(result){
+            is Result.Error -> {
+                result.asEmptyDataResult()
+            }
+            is Result.Success -> {
+                applicationScope.async { localDataSource.deleteAddress(addressId.toInt()) }.await()
+                Result.Success(Unit)
+            }
+        }
     }
 
     override suspend fun fetchAllFilteredProducts(

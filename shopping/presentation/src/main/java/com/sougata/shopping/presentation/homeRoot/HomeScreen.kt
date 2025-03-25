@@ -51,6 +51,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreenRoot(
+    addAddressClicked: () -> Unit,
+    showAddressesClicked: () -> Unit,
     filterClicked: () -> Unit,
     viewModel: HomeScreenViewModel = koinViewModel()
 ) {
@@ -121,15 +123,19 @@ fun HomeScreenRoot(
                     },
                     icon = {
                         BadgedBox(
-                           badge = {
-                               if (viewModel.state.cartCount > 0){
-                                   Badge{
-                                       Text(text = viewModel.state.cartCount.toString())}
-                               }
-                           }
+                            badge = {
+                                if (viewModel.state.cartCount > 0) {
+                                    Badge {
+                                        Text(text = viewModel.state.cartCount.toString())
+                                    }
+                                }
+                            }
                         ) {
                             if (selectedIndex == 1) {
-                                Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = null)
+                                Icon(
+                                    imageVector = Icons.Filled.ShoppingCart,
+                                    contentDescription = null
+                                )
                             } else {
                                 Icon(
                                     imageVector = Icons.Outlined.ShoppingCart,
@@ -217,7 +223,11 @@ fun HomeScreenRoot(
                 .fillMaxSize()
                 .background(color = AmazonGrey.copy(alpha = .2f))
         ) {
-            CenterContent(index = selectedIndex)
+            CenterContent(
+                index = selectedIndex,
+                addAddressClicked = addAddressClicked,
+                showAddressesClicked = showAddressesClicked
+            )
         }
     }
 }
@@ -226,7 +236,7 @@ fun HomeScreenRoot(
 @Composable
 fun HomeScreenPreview() {
     AmazonTheme {
-        HomeScreenRoot(filterClicked = {})
+        HomeScreenRoot(filterClicked = {}, addAddressClicked = {}, showAddressesClicked = {})
     }
 }
 
@@ -248,7 +258,11 @@ private fun ProductItemPrev() {
 
 
 @Composable
-fun CenterContent(index: Int) {
+fun CenterContent(
+    index: Int,
+    addAddressClicked: () -> Unit,
+    showAddressesClicked: () -> Unit,
+) {
     when (index) {
         0 -> {
             HomeCentreContentRoot()
@@ -263,7 +277,12 @@ fun CenterContent(index: Int) {
         }
 
         3 -> {
-            ProfileCentreContentRoot()
+            ProfileCentreContentRoot(
+                addAddressClicked = {
+                    addAddressClicked()
+                },
+                showAddressesClicked = showAddressesClicked
+            )
         }
     }
 }

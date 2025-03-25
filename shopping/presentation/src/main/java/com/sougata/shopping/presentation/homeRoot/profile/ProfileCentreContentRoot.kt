@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.sougata.core.presentation.designsystem.AmazonBlack
 import com.sougata.core.presentation.designsystem.AmazonGrey
@@ -52,16 +51,22 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileCentreContentRoot(
+    addAddressClicked:() -> Unit,
+    showAddressesClicked :() -> Unit,
     viewModel: ProfileScreenViewModel = koinViewModel()
 ) {
     ProfileScreen(
         state = viewModel.state,
-        onAction = viewModel::onAction
+        onAction = viewModel::onAction,
+        addAddressClicked = addAddressClicked,
+        showAddressesClicked = showAddressesClicked
     )
 }
 
 @Composable
 private fun ProfileScreen(
+    addAddressClicked:() -> Unit,
+    showAddressesClicked :() -> Unit,
     state: ProfileScreenState,
     onAction: (ProfileScreenActions) -> Unit
 ) {
@@ -83,8 +88,8 @@ private fun ProfileScreen(
             modifier = Modifier.padding(top = 8.dp)
         )
 
-        AddressBar(text = "Add an address", onClick = {})
-        AddressBar(text = "View all addresses", onClick = {})
+        AddressBar(text = "Add an address", onClick = { addAddressClicked() })
+        AddressBar(text = "View all addresses", onClick = { showAddressesClicked()})
 
         AmazonActionButton(
             text = "Logout",
@@ -111,7 +116,9 @@ private fun ProfileScreenPreview() {
     AmazonTheme {
         ProfileScreen(
             state = ProfileScreenState(),
-            onAction = {}
+            onAction = {},
+            addAddressClicked = {},
+            showAddressesClicked = {}
         )
     }
 }
@@ -124,8 +131,9 @@ private fun AddressBar(text: String, onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(8.dp)
             .background(Color.LightGray, shape = RoundedCornerShape(12.dp))
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .clickable(onClick = { onClick() }),
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(onClick = { onClick() })
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

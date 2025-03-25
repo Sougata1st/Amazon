@@ -6,13 +6,23 @@ import com.sougata.core.data.networking.post
 import com.sougata.core.domain.util.DataError
 import com.sougata.core.domain.util.Result
 import com.sougata.core.domain.util.map
+import com.sougata.shopping.data.dto.AddAddressRequestDto
+import com.sougata.shopping.data.dto.AddAddressResponseDTO
 import com.sougata.shopping.data.dto.AddToCartSerializable
+import com.sougata.shopping.data.dto.DeleteAddressResponseDto
+import com.sougata.shopping.data.dto.GetAllAddressResponseDto
 import com.sougata.shopping.data.dto.ProductCategoryResponseSerializable
 import com.sougata.shopping.data.dto.ProductResponse
 import com.sougata.shopping.data.dto.ResponseDto
+import com.sougata.shopping.data.dto.toAddAddressRequestDtoSerializable
 import com.sougata.shopping.data.dto.toAddToCartResponse
+import com.sougata.shopping.data.dto.toAddressResponse
+import com.sougata.shopping.data.dto.toDeleteAddressResponse
 import com.sougata.shopping.domain.dataSource.ShopRemoteDataSource
 import com.sougata.shopping.domain.models.AddToCartResponse
+import com.sougata.shopping.domain.models.Address
+import com.sougata.shopping.domain.models.AddressResponse
+import com.sougata.shopping.domain.models.DeleteAddressResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.models.ProductCategory
@@ -137,6 +147,44 @@ class KtorRemoteDataSource(
                 error = it.error,
                 timeStamp = it.timeStamp
             )
+        }
+    }
+
+    override suspend fun addAddress(address: Address): Result<AddressResponse, DataError.Network> {
+        val result = httpClient.post<AddAddressRequestDto, AddAddressResponseDTO>(
+            baseUrl = "https://e-comm-inventory-service.onrender.com",
+            route = "/address",
+            body = address.toAddAddressRequestDtoSerializable(),
+        )
+
+        return result.map {
+            it.toAddressResponse()
+        }
+    }
+
+    override suspend fun deleteAddress(addressId: String): Result<DeleteAddressResponse, DataError.Network> {
+        val response = httpClient.delete<DeleteAddressResponseDto>(
+            baseUrl = "https://e-store-user-service.onrender.com",
+            route = "/address/delete",
+            queryParameters = mapOf(
+                "id" to addressId
+            )
+        )
+
+        return response.map {
+            it.toDeleteAddressResponse()
+        }
+    }
+
+    override suspend fun getAllAddress(): Result<List<AddressResponse>, DataError.Network> {
+        val response = httpClient.get<GetAllAddressResponseDto>(
+            baseUrl = "https://e-store-user-service.onrender.com",
+            route = "/address"
+        )
+        return response.map { getAllAddressResponseDto ->
+            getAllAddressResponseDto.data.map { addressDTO ->
+                addressDTO.toAddressResponse()
+            }
         }
     }
 

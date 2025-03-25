@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.sougata.shopping.database.entity.AddressEntity
 import com.sougata.shopping.database.entity.FilteredProductEntity
 import com.sougata.shopping.database.entity.ProductCategoryEntity
 import com.sougata.shopping.database.entity.ProductEntity
@@ -126,6 +127,15 @@ interface ProductDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllFilteredProducts(products: List<FilteredProductEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addAddress(address: AddressEntity)
+
+    @Query("DELETE FROM AddressEntity WHERE id = :addressId")
+    suspend fun deleteAddress(addressId: Int)
+
+    @Query("SELECT * FROM AddressEntity")
+    fun getAllAddresses(): Flow<List<AddressEntity>>
 
     @Transaction
     suspend fun insertFilteredProducts(products: List<FilteredProductEntity>) {
