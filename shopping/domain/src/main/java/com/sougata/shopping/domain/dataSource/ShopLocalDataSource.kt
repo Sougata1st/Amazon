@@ -21,6 +21,8 @@ interface ShopLocalDataSource {
     suspend fun saveAllCategories(productCategoryList: List<ProductCategory>) : Result<List<ProductCategory>, DataError.Local>
     suspend fun upsertFilteredProducts(products: List<Product>) : Result<List<Product>, DataError.Local>
     fun getAllAddress(): Flow<List<AddressResponse>>
+
+    suspend fun addAllAddresses(addresses: List<AddressResponse>) : Result<List<AddressResponse>, DataError.Local>
     suspend fun addAddress(address: AddressResponse): Result<AddressResponse, DataError.Local>
     suspend fun deleteAddress(addressId: Int)
     fun getFilteredProducts(order: String): Flow<List<Product>>

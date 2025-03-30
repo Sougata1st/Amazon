@@ -5,19 +5,30 @@ import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sougata.core.domain.SessionStorage
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 
-class ProfileScreenViewModel: ViewModel() {
+class ProfileScreenViewModel(val sessionStorage: SessionStorage): ViewModel() {
     val state by mutableStateOf(ProfileScreenState())
 
     private val _eventChannel = Channel<ProfileScreenEvents>()
     val events = _eventChannel.receiveAsFlow()
 
     fun onAction(actions: ProfileScreenActions){
-
+        when(actions){
+            ProfileScreenActions.SignOutClicked -> {
+                viewModelScope.launch {
+                    sessionStorage.set(null)
+                    _eventChannel.send(ProfileScreenEvents.NavigateToLogin)
+                }
+            }
+            else -> Unit
+        }
     }
 
     private fun uriToFile(context: Context, uri: Uri): File? {

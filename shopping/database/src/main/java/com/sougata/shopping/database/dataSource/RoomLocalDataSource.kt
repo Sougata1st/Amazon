@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.map
 
 class RoomLocalDataSource(
     private val dao: ProductDao
-): ShopLocalDataSource {
+) : ShopLocalDataSource {
     override fun getAllProducts(): Flow<List<Product>> {
         val result = dao.getAllProducts()
         return result.map { pdtEntityList ->
@@ -70,24 +70,24 @@ class RoomLocalDataSource(
     }
 
     override suspend fun upsertCarts(products: List<ProductEntry>): Result<List<ProductEntry>, DataError.Local> {
-       return try {
-           dao.upsertCarts(products.map { productEntry ->
-               ProductEntryEntity(
-                   productId = productEntry.product.productId,
-                   productName = productEntry.product.productName,
-                   basePrice = productEntry.product.basePrice,
-                   stocks = productEntry.product.stocks,
-                   imageUrl = productEntry.product.imageUrl,
-                   category = productEntry.product.category,
-                   modifiedPrice = productEntry.product.modifiedPrice,
-                   unavaliable = productEntry.product.unavaliable,
-                   quantity = productEntry.quantity
-               )
-           })
-           Result.Success(products)
-       }catch (e: SQLiteException){
-           Result.Error(DataError.Local.DISK_FULL)
-       }
+        return try {
+            dao.upsertCarts(products.map { productEntry ->
+                ProductEntryEntity(
+                    productId = productEntry.product.productId,
+                    productName = productEntry.product.productName,
+                    basePrice = productEntry.product.basePrice,
+                    stocks = productEntry.product.stocks,
+                    imageUrl = productEntry.product.imageUrl,
+                    category = productEntry.product.category,
+                    modifiedPrice = productEntry.product.modifiedPrice,
+                    unavaliable = productEntry.product.unavaliable,
+                    quantity = productEntry.quantity
+                )
+            })
+            Result.Success(products)
+        } catch (e: SQLiteException) {
+            Result.Error(DataError.Local.DISK_FULL)
+        }
     }
 
     override suspend fun insertProductCart(productEntry: ProductEntry) {
@@ -138,7 +138,7 @@ class RoomLocalDataSource(
                 }
             )
             Result.Success(productCategoryList)
-        }catch (e: SQLiteException){
+        } catch (e: SQLiteException) {
             return Result.Error(DataError.Local.DISK_FULL)
         }
     }
@@ -149,7 +149,7 @@ class RoomLocalDataSource(
                 it.toFilteredProductEntity()
             })
             Result.Success(products)
-        }catch (e: SQLiteException){
+        } catch (e: SQLiteException) {
             return Result.Error(DataError.Local.DISK_FULL)
         }
     }
@@ -162,11 +162,22 @@ class RoomLocalDataSource(
         }
     }
 
+    override suspend fun addAllAddresses(addresses: List<AddressResponse>): Result<List<AddressResponse>, DataError.Local> {
+        return try {
+            dao.insertAllAddresses(addresses.map {
+                it.toAddressEntity()
+            })
+            Result.Success(addresses)
+        } catch (e: SQLiteException) {
+            return Result.Error(DataError.Local.DISK_FULL)
+        }
+    }
+
     override suspend fun addAddress(address: AddressResponse): Result<AddressResponse, DataError.Local> {
         return try {
             dao.addAddress(address.toAddressEntity())
             Result.Success(address)
-        }catch (e: SQLiteException){
+        } catch (e: SQLiteException) {
             return Result.Error(DataError.Local.DISK_FULL)
         }
     }
@@ -176,7 +187,7 @@ class RoomLocalDataSource(
         dao.deleteAddress(addressId)
     }
 
-    override fun getFilteredProducts(order : String): Flow<List<Product>> {
+    override fun getFilteredProducts(order: String): Flow<List<Product>> {
         return if (order.equals("ASC", ignoreCase = true)) {
             dao.getFilteredProductsAsc()
                 .map {
@@ -197,4 +208,5 @@ class RoomLocalDataSource(
     override suspend fun clearFilterItems() {
         dao.clearAllProducts()
     }
+
 }

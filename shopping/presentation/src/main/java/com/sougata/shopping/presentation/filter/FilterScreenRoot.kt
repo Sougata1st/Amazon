@@ -336,7 +336,7 @@ private fun ColumnItem(selectedTab: Int, text: String, position: Int = 0, onClic
             .clip(RoundedCornerShape(16.dp))
             .background(
                 shape = RoundedCornerShape(16.dp),
-                color = AmazonYellow.copy(alpha = 0.5f)
+                color = AmazonYellow
             )
             .then(
                 if (selectedTab == position) {
@@ -356,7 +356,7 @@ private fun ColumnItem(selectedTab: Int, text: String, position: Int = 0, onClic
     {
         Text(
             text = text,
-            color = if (selectedTab == position) Color.Black else AmazonGrey.copy(alpha = 0.5f),
+            color = if (selectedTab == position) Color.Black else AmazonDarkGrey,
             style = TextStyle(fontWeight = if (selectedTab == position) FontWeight.Bold else FontWeight.Normal)
         )
     }

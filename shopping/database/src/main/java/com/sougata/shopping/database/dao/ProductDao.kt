@@ -44,6 +44,9 @@ interface ProductDao {
     """)
     suspend fun incrementQuantity(productId: String): Int
 
+    @Query("DELETE FROM ProductEntryEntity")
+    suspend fun clearCart()
+
     //adding pdt
     @Transaction
     suspend fun addProduct(product: ProductEntryEntity) {
@@ -103,6 +106,9 @@ interface ProductDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(categories: List<ProductCategoryEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllAddresses(addresses: List<AddressEntity>)
+
     // Function to clear and insert
     @Transaction
     suspend fun clearAndInsert(categories: List<ProductCategoryEntity>) {
@@ -134,7 +140,7 @@ interface ProductDao {
     @Query("DELETE FROM AddressEntity WHERE id = :addressId")
     suspend fun deleteAddress(addressId: Int)
 
-    @Query("SELECT * FROM AddressEntity")
+    @Query("SELECT * FROM AddressEntity ORDER BY id DESC")
     fun getAllAddresses(): Flow<List<AddressEntity>>
 
     @Transaction
@@ -142,4 +148,8 @@ interface ProductDao {
         //clearAllProducts()
         insertAllFilteredProducts(products)
     }
+
+
+    // Get Addresses with Orders
+
 }

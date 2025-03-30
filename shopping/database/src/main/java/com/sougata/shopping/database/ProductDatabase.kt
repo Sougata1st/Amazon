@@ -10,13 +10,15 @@ import com.sougata.shopping.database.entity.ProductEntity
 import com.sougata.shopping.database.entity.ProductEntryEntity
 
 @Database(
-    entities = [ProductEntity::class, ProductEntryEntity::class, ProductCategoryEntity::class, FilteredProductEntity::class, AddressEntity::class],
-    version = 6
+    entities = [ProductEntity::class, ProductEntryEntity::class,
+        ProductCategoryEntity::class, FilteredProductEntity::class,
+        AddressEntity::class],
+    version = 8
 )
-abstract class ProductDatabase:RoomDatabase() {
+abstract class ProductDatabase : RoomDatabase() {
     abstract val productDao: ProductDao
 
-    companion object{
+    companion object {
         const val DB_NAME = "amazon_db"
     }
 }

@@ -1,5 +1,6 @@
 package com.sougata.shopping.presentation.addAdress
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -58,6 +60,7 @@ import com.sougata.core.presentation.designsystem.components.AmazonAddressTabIte
 import com.sougata.core.presentation.designsystem.components.AmazonScaffold
 import com.sougata.core.presentation.designsystem.components.AmazonTextField
 import com.sougata.core.presentation.designsystem.components.AmazonToolbar
+import com.sougata.core.presentation.ui.ObserveAsEvents
 import com.sougata.shopping.presentation.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -66,6 +69,18 @@ fun AddAddressScreenRoot(
     onBackClick: () -> Unit,
     viewModel:AddAddressScreenViewModel  = koinViewModel()
 ) {
+    val context = LocalContext.current
+    ObserveAsEvents(viewModel.events) {
+        when(it){
+            is AddAddressScreenEvents.Error -> {
+                Toast.makeText(context,it.error.asString(context), Toast.LENGTH_SHORT).show()
+            }
+            AddAddressScreenEvents.Success -> {
+                Toast.makeText(context,"Address saved !!", Toast.LENGTH_SHORT).show()
+                onBackClick()
+            }
+        }
+    }
     AddAddressScreen(
         state = viewModel.state,
         onAction = viewModel::onAction,
@@ -248,7 +263,7 @@ private fun AddAddressScreen(
                     position = 1,
                     onClick = {
                         selectedTab = it
-                        AddAddressActions.AddAddressAddressType(AddressTypes.HOME.name)
+                        onAction(AddAddressActions.AddAddressAddressType(AddressTypes.HOME.name))
                     }
                 )
                 AmazonAddressTabItem(
@@ -258,7 +273,7 @@ private fun AddAddressScreen(
                     position = 2,
                     onClick = {
                         selectedTab = it
-                        AddAddressActions.AddAddressAddressType(AddressTypes.OFFICE.name)
+                        onAction(AddAddressActions.AddAddressAddressType(AddressTypes.OFFICE.name))
                     }
                 )
                 AmazonAddressTabItem(
@@ -268,7 +283,7 @@ private fun AddAddressScreen(
                     position = 3,
                     onClick = {
                         selectedTab = it
-                        AddAddressActions.AddAddressAddressType(AddressTypes.OTHER.name)
+                        onAction(AddAddressActions.AddAddressAddressType(AddressTypes.OTHER.name))
                     }
                 )
             }
@@ -281,7 +296,7 @@ private fun AddAddressScreen(
                 containerColor = AmazonYellow,
                 contentColor = AmazonBlack,
                 onClick = {
-                    AddAddressActions.AddAddressClicked
+                    onAction(AddAddressActions.AddAddressClicked)
                 },
                 progressbarSize = 20.dp
             )

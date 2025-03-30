@@ -6,11 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sougata.core.domain.util.Result
+import com.sougata.core.presentation.ui.asUiText
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.repository.ShopRepository
 import com.sougata.shopping.presentation.homeRoot.util.ProductCartItem
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -27,12 +30,13 @@ class CartScreenViewModel(
     init {
         viewModelScope.launch {
             val result = repository.fetchAllCarts()
-            when(result){
+            when (result) {
                 is Result.Error -> {
-                    //TODO send success
+                    _eventChannel.send(CartScreenEvents.FailedToFetchCarts)
                 }
+
                 is Result.Success -> {
-                    //TODO send faliure
+                   _eventChannel.send(CartScreenEvents.Success)
                 }
             }
         }
@@ -80,6 +84,13 @@ class CartScreenViewModel(
                     state = state.copy(products = it)
                 }
         }
+
+        repository.getAllAddress()
+            .onEach {
+                state = state.copy(
+                    addressList = it
+                )
+            }.launchIn(viewModelScope)
     }
 
     fun onAction(event: CartActions) {
@@ -125,8 +136,29 @@ class CartScreenViewModel(
                 }
             }
 
-            CartActions.Purchase -> {
-                //TODO()
+            is CartActions.SelectAddress -> {
+                state = state.copy(addressId = event.addressId)
+            }
+
+            is CartActions.ConfirmAndPurchaseClicked -> {
+                viewModelScope.launch {
+                    val response =
+                        repository.initialisePayment(addressId = state.addressId)
+                    when(response){
+                        is Result.Error -> {
+                            _eventChannel.send(CartScreenEvents.Failure(response.error.asUiText()))
+                        }
+                        is Result.Success -> {
+                            state = state.copy(
+                                amount = response.data.data.amount,
+                                key = response.data.data.key,
+                                orderId = response.data.data.orderId
+                            )
+
+                            _eventChannel.send(CartScreenEvents.InitialisePayment)
+                        }
+                    }
+                }
             }
         }
     }

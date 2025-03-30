@@ -6,6 +6,8 @@ import com.sougata.shopping.domain.models.AddToCartResponse
 import com.sougata.shopping.domain.models.Address
 import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.domain.models.DeleteAddressResponse
+import com.sougata.shopping.domain.models.FetchOrderResponse
+import com.sougata.shopping.domain.models.PaymentResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCategoryResponse
 import com.sougata.shopping.domain.models.ProductEntry
@@ -24,6 +26,8 @@ interface ShopRemoteDataSource {
 
     suspend fun getAllAddress() : Result<List<AddressResponse>, DataError.Network>
 
+    suspend fun initiatePayment(addressId:Int): Result<PaymentResponse, DataError.Network>
+
     suspend fun getAllFilteredProducts(
         pageNo: Int, pageSize: Int, category: String,
         sortBy: String,
@@ -31,4 +35,6 @@ interface ShopRemoteDataSource {
         lowerPriceBound: Int,
         upperPriceBound: Int
     ): Result<List<Product>, DataError.Network>
+
+    suspend fun getAllOrders(): Result<FetchOrderResponse, DataError.Network>
 }

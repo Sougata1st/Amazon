@@ -1,8 +1,5 @@
 package com.sougata.shopping.presentation.homeRoot.profile
 
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,8 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +41,7 @@ import com.sougata.core.presentation.designsystem.AmazonTheme
 import com.sougata.core.presentation.designsystem.AmazonWhite
 import com.sougata.core.presentation.designsystem.AmazonYellow
 import com.sougata.core.presentation.designsystem.components.AmazonActionButton
+import com.sougata.core.presentation.ui.ObserveAsEvents
 import com.sougata.shopping.presentation.R
 import org.koin.androidx.compose.koinViewModel
 
@@ -53,8 +49,16 @@ import org.koin.androidx.compose.koinViewModel
 fun ProfileCentreContentRoot(
     addAddressClicked:() -> Unit,
     showAddressesClicked :() -> Unit,
+    navigateToIntro: () -> Unit,
     viewModel: ProfileScreenViewModel = koinViewModel()
 ) {
+
+    ObserveAsEvents(viewModel.events) {
+        if(it is ProfileScreenEvents.NavigateToLogin){
+           navigateToIntro()
+        }
+    }
+
     ProfileScreen(
         state = viewModel.state,
         onAction = viewModel::onAction,
@@ -165,14 +169,7 @@ private fun AddressBar(text: String, onClick: () -> Unit) {
 @Composable
 fun ProfileSection() {
     var expanded by remember { mutableStateOf(false) } // Controls dropdown visibility
-
-    val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? ->
-        uri?.let {
-            //TODO viewModel.uploadProfileImage(context, it)
-        }
-    }
+    
 
     Box(
         modifier = Modifier
@@ -198,19 +195,5 @@ fun ProfileSection() {
             )
         }
 
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }, // Closes when tapped outside
-            modifier = Modifier.background(Color.White)
-        ) {
-            DropdownMenuItem(
-                text = { Text("Choose from Gallery") },
-                onClick = {
-                    expanded = false
-                    // Handle gallery selection
-                    galleryLauncher.launch("image/*")
-                }
-            )
-        }
     }
 }

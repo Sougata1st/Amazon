@@ -5,7 +5,9 @@ import com.sougata.shopping.presentation.filter.FilterViewModel
 import com.sougata.shopping.presentation.filterResult.FilterResultScreenViewModel
 import com.sougata.shopping.presentation.homeRoot.cart.CartScreenViewModel
 import com.sougata.shopping.presentation.homeRoot.home.HomeScreenViewModel
+import com.sougata.shopping.presentation.homeRoot.orders.OrderViewModel
 import com.sougata.shopping.presentation.homeRoot.profile.ProfileScreenViewModel
+import com.sougata.shopping.presentation.showAllAddress.ShowAddressViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -16,4 +18,6 @@ val ShoppingViewModelModule = module {
     viewModelOf(::FilterResultScreenViewModel)
     viewModelOf(::ProfileScreenViewModel)
     viewModelOf(::AddAddressScreenViewModel)
+    viewModelOf(::ShowAddressViewModel)
+    viewModelOf(::OrderViewModel)
 }

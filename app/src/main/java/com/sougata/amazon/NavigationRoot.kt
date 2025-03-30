@@ -1,6 +1,5 @@
 package com.sougata.amazon
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -15,6 +14,7 @@ import com.sougata.shopping.presentation.addAdress.AddAddressScreenRoot
 import com.sougata.shopping.presentation.filter.FilterScreenRoot
 import com.sougata.shopping.presentation.filterResult.FilterResultScreenRoot
 import com.sougata.shopping.presentation.homeRoot.HomeScreenRoot
+import com.sougata.shopping.presentation.showAllAddress.ShowAddressScreenRoot
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -99,9 +99,17 @@ private fun NavGraphBuilder.shopGraph(navHostController: NavHostController) {
             },
             addAddressClicked = {
                 navHostController.navigate(ShopRoutes.AddAddressScreen)
-                Log.d("Sougata","Navigated")
             },
-            showAddressesClicked = { }
+            showAddressesClicked = {
+                navHostController.navigate(ShopRoutes.ShowAddressScreen)
+            },
+            navigateToIntro = {
+                navHostController.navigate(AuthRoutes.IntroScreen) {
+                    popUpTo(ShopRoutes.HomeScreen) {
+                        inclusive = true
+                    }
+                }
+            }
         )
     }
 
@@ -133,6 +141,10 @@ private fun NavGraphBuilder.shopGraph(navHostController: NavHostController) {
 
     composable<ShopRoutes.FilterResultScreen> {
         FilterResultScreenRoot()
+    }
+
+    composable<ShopRoutes.ShowAddressScreen> {
+        ShowAddressScreenRoot (onBackClick = { navHostController.navigateUp() })
     }
 }
 
@@ -173,6 +185,9 @@ sealed class ShopRoutes {
 
     @Serializable
     data object AddAddressScreen : ShopRoutes()
+
+    @Serializable
+    data object ShowAddressScreen: ShopRoutes()
 }
 
 

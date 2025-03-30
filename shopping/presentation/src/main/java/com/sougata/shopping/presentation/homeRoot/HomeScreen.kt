@@ -27,6 +27,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -45,6 +46,8 @@ import com.sougata.core.presentation.designsystem.components.AmazonToolbar
 import com.sougata.shopping.presentation.homeRoot.cart.CartCentreContentScreenRoot
 import com.sougata.shopping.presentation.homeRoot.home.HomeCentreContentRoot
 import com.sougata.shopping.presentation.homeRoot.home.HomeScreenViewModel
+import com.sougata.shopping.presentation.homeRoot.orders.OrderListScreen
+import com.sougata.shopping.presentation.homeRoot.orders.OrderViewModel
 import com.sougata.shopping.presentation.homeRoot.profile.ProfileCentreContentRoot
 import org.koin.androidx.compose.koinViewModel
 
@@ -54,6 +57,7 @@ fun HomeScreenRoot(
     addAddressClicked: () -> Unit,
     showAddressesClicked: () -> Unit,
     filterClicked: () -> Unit,
+    navigateToIntro: () -> Unit,
     viewModel: HomeScreenViewModel = koinViewModel()
 ) {
 
@@ -226,7 +230,8 @@ fun HomeScreenRoot(
             CenterContent(
                 index = selectedIndex,
                 addAddressClicked = addAddressClicked,
-                showAddressesClicked = showAddressesClicked
+                showAddressesClicked = showAddressesClicked,
+                navigateToIntro = navigateToIntro
             )
         }
     }
@@ -236,7 +241,7 @@ fun HomeScreenRoot(
 @Composable
 fun HomeScreenPreview() {
     AmazonTheme {
-        HomeScreenRoot(filterClicked = {}, addAddressClicked = {}, showAddressesClicked = {})
+        HomeScreenRoot(filterClicked = {}, addAddressClicked = {}, showAddressesClicked = {}, navigateToIntro = {})
     }
 }
 
@@ -262,7 +267,15 @@ fun CenterContent(
     index: Int,
     addAddressClicked: () -> Unit,
     showAddressesClicked: () -> Unit,
+    navigateToIntro: () -> Unit,
 ) {
+    val viewModel : OrderViewModel = koinViewModel()
+    LaunchedEffect(index) {
+        if (index == 2) {
+            viewModel.load()
+        }
+    }
+
     when (index) {
         0 -> {
             HomeCentreContentRoot()
@@ -273,7 +286,7 @@ fun CenterContent(
         }
 
         2 -> {
-            Text("Sougata")
+            OrderListScreen()
         }
 
         3 -> {
@@ -281,7 +294,8 @@ fun CenterContent(
                 addAddressClicked = {
                     addAddressClicked()
                 },
-                showAddressesClicked = showAddressesClicked
+                showAddressesClicked = showAddressesClicked,
+                navigateToIntro = navigateToIntro
             )
         }
     }

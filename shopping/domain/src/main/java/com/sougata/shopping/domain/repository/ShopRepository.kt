@@ -2,8 +2,11 @@ package com.sougata.shopping.domain.repository
 
 import com.sougata.core.domain.util.DataError
 import com.sougata.core.domain.util.EmptyResult
+import com.sougata.core.domain.util.Result
 import com.sougata.shopping.domain.models.Address
 import com.sougata.shopping.domain.models.AddressResponse
+import com.sougata.shopping.domain.models.FetchOrderResponse
+import com.sougata.shopping.domain.models.PaymentResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.models.ProductCategory
@@ -22,6 +25,9 @@ interface ShopRepository {
     suspend fun saveAllCategories(): EmptyResult<DataError>
     fun getAllCategories(): Flow<List<ProductCategory>>
 
+    suspend fun fetchAllAddresses(): EmptyResult<DataError.Network>
+
+    suspend fun initialisePayment(addressId:Int): Result<PaymentResponse, DataError.Network>
     suspend fun clearFilterItems()
 
     fun getAllAddress(): Flow<List<AddressResponse>>
@@ -39,4 +45,7 @@ interface ShopRepository {
         ): EmptyResult<DataError>
 
     suspend fun getAllFilteredProducts(order: String): Flow<List<Product>>
+
+
+    suspend fun getAllOrders(): Result<FetchOrderResponse, DataError.Network>
 }

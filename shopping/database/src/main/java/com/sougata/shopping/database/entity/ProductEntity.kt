@@ -17,3 +17,4 @@ data class ProductEntity(
     val unavaliable: Boolean,
     val pageCount: Int
 )
+

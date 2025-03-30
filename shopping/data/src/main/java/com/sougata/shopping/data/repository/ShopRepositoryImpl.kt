@@ -8,6 +8,8 @@ import com.sougata.shopping.domain.dataSource.ShopLocalDataSource
 import com.sougata.shopping.domain.dataSource.ShopRemoteDataSource
 import com.sougata.shopping.domain.models.Address
 import com.sougata.shopping.domain.models.AddressResponse
+import com.sougata.shopping.domain.models.FetchOrderResponse
+import com.sougata.shopping.domain.models.PaymentResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.models.ProductCategory
@@ -154,6 +156,21 @@ class ShopRepositoryImpl(
         return localDataSource.getAllCategories()
     }
 
+    override suspend fun fetchAllAddresses(): EmptyResult<DataError.Network> {
+        val result = applicationScope.async { remoteDataSource.getAllAddress() }.await()
+        return when(result){
+            is Result.Error -> result.asEmptyDataResult()
+            is Result.Success -> {
+                applicationScope.async { localDataSource.addAllAddresses(result.data) }.await()
+                result.asEmptyDataResult()
+            }
+        }
+    }
+
+    override suspend fun initialisePayment(addressId:Int): Result<PaymentResponse, DataError.Network> {
+        return remoteDataSource.initiatePayment(addressId)
+    }
+
     override suspend fun clearFilterItems() {
        localDataSource.clearFilterItems()
     }
@@ -217,6 +234,12 @@ class ShopRepositoryImpl(
     }
 
     override suspend fun getAllFilteredProducts(order:String): Flow<List<Product>> {
-        return localDataSource.getFilteredProducts(order)
+        return applicationScope.async{ localDataSource.getFilteredProducts(order) }.await()
     }
+
+
+    override suspend fun getAllOrders(): Result<FetchOrderResponse, DataError.Network> {
+        return applicationScope.async { remoteDataSource.getAllOrders() }.await()
+    }
+
 }

@@ -108,7 +108,7 @@ class HttpClientFactory(
                     sessionStorage.get()
                 }
 
-                if (authInfo != null) {
+                if (authInfo != null && authInfo.accessToken.isNotEmpty() && authInfo.refreshToken.isNotEmpty()) {
                     headers.append("Authorization", "Bearer ${authInfo.accessToken}")
                 }
                 

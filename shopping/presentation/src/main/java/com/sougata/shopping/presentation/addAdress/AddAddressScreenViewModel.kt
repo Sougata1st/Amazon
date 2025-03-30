@@ -30,6 +30,7 @@ class AddAddressScreenViewModel(
             }
             AddAddressActions.AddAddressClicked -> {
                 viewModelScope.launch {
+
                     state = state.copy(
                         isSavingAddress = true
                     )

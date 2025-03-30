@@ -38,6 +38,17 @@ class HomeScreenViewModel(
         }
 
         viewModelScope.launch {
+            repository.fetchAllAddresses()
+        }
+        viewModelScope.launch {
+            repository.fetchAllCarts()
+        }
+
+        viewModelScope.launch {
+            repository.getAllOrders()
+        }
+        viewModelScope.launch {
+            state = state.copy(isLoading = true)
             repository.getAllProducts().map {
                 it.map { product ->
                     val rating = getRandomNum(5)
@@ -62,6 +73,9 @@ class HomeScreenViewModel(
                 }
             }.collect {
                 state = state.copy(products = it)
+                if (state.products.isNotEmpty()){
+                    state = state.copy(isLoading = false)
+                }
             }
         }
 

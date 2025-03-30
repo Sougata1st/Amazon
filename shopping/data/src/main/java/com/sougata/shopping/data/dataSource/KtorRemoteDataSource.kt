@@ -10,7 +10,9 @@ import com.sougata.shopping.data.dto.AddAddressRequestDto
 import com.sougata.shopping.data.dto.AddAddressResponseDTO
 import com.sougata.shopping.data.dto.AddToCartSerializable
 import com.sougata.shopping.data.dto.DeleteAddressResponseDto
+import com.sougata.shopping.data.dto.FetchOrderResponseDto
 import com.sougata.shopping.data.dto.GetAllAddressResponseDto
+import com.sougata.shopping.data.dto.PaymentResponseDto
 import com.sougata.shopping.data.dto.ProductCategoryResponseSerializable
 import com.sougata.shopping.data.dto.ProductResponse
 import com.sougata.shopping.data.dto.ResponseDto
@@ -18,11 +20,15 @@ import com.sougata.shopping.data.dto.toAddAddressRequestDtoSerializable
 import com.sougata.shopping.data.dto.toAddToCartResponse
 import com.sougata.shopping.data.dto.toAddressResponse
 import com.sougata.shopping.data.dto.toDeleteAddressResponse
+import com.sougata.shopping.data.dto.toDomain
+import com.sougata.shopping.data.dto.toPaymentResponse
 import com.sougata.shopping.domain.dataSource.ShopRemoteDataSource
 import com.sougata.shopping.domain.models.AddToCartResponse
 import com.sougata.shopping.domain.models.Address
 import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.domain.models.DeleteAddressResponse
+import com.sougata.shopping.domain.models.FetchOrderResponse
+import com.sougata.shopping.domain.models.PaymentResponse
 import com.sougata.shopping.domain.models.Product
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.models.ProductCategory
@@ -152,7 +158,7 @@ class KtorRemoteDataSource(
 
     override suspend fun addAddress(address: Address): Result<AddressResponse, DataError.Network> {
         val result = httpClient.post<AddAddressRequestDto, AddAddressResponseDTO>(
-            baseUrl = "https://e-comm-inventory-service.onrender.com",
+            baseUrl = "https://e-store-user-service.onrender.com",
             route = "/address",
             body = address.toAddAddressRequestDtoSerializable(),
         )
@@ -185,6 +191,20 @@ class KtorRemoteDataSource(
             getAllAddressResponseDto.data.map { addressDTO ->
                 addressDTO.toAddressResponse()
             }
+        }
+    }
+
+    override suspend fun initiatePayment(addressId:Int): Result<PaymentResponse, DataError.Network> {
+        val response = httpClient.post<Unit,PaymentResponseDto>(
+            baseUrl = "https://e-store-order-service.onrender.com",
+            route = "/order/place-order",
+            queryParameters = mapOf(
+                "address" to addressId
+            ),
+            body = Unit
+        )
+        return response.map {
+            it.toPaymentResponse()
         }
     }
 
@@ -226,6 +246,23 @@ class KtorRemoteDataSource(
                 )
             }
 
+        }
+    }
+
+    override suspend fun getAllOrders(): Result<FetchOrderResponse, DataError.Network> {
+        val result = httpClient.get<FetchOrderResponseDto>(
+            baseUrl = "https://e-store-order-service.onrender.com",
+            route = "/order/user-order?",
+            queryParameters = mapOf(
+                "pageNo" to 0,
+                "pageSize" to 50,
+                "sortBy" to "createdAt",
+                "sortDir" to "DESC"
+            )
+        )
+
+        return result.map {
+            it.toDomain()
         }
     }
 }

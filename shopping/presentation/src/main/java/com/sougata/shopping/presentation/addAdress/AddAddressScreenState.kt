@@ -5,7 +5,7 @@ data class AddAddressScreenState(
     val landmark: String = "",
     val state: String = "",
     val zipCode: String = "",
-    val addressType: String = "",
+    val addressType: String = "HOME",
     val phoneNumber: String = "",
     val isSavingAddress: Boolean = false
 )
