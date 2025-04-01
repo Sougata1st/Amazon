@@ -1,16 +1,19 @@
 package com.sougata.shopping.presentation.homeRoot.cart
 
+import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sougata.core.domain.util.Result
+import com.sougata.core.presentation.ui.UiText
 import com.sougata.core.presentation.ui.asUiText
 import com.sougata.shopping.domain.models.ProductCart
 import com.sougata.shopping.domain.repository.ShopRepository
 import com.sougata.shopping.presentation.homeRoot.util.ProductCartItem
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -54,35 +57,45 @@ class CartScreenViewModel(
                 }
         }
         viewModelScope.launch {
-            repository.getCart()
-                .map {
-                    it.map { productEntry ->
-                        val rating = getRandomNum(5)
-                        val noOfRating = getRandomNum(1000)
-                        val discountPercentage = calculateDiscountPercentage(
-                            productEntry.product.basePrice,
-                            productEntry.product.modifiedPrice
-                        )
-                        val cartCount = productEntry.quantity
-                        ProductCartItem(
-                            id = Random.nextInt().toString(),
-                            productId = productEntry.product.productId,
-                            productName = productEntry.product.productName,
-                            basePrice = productEntry.product.basePrice.toString(),
-                            stocks = productEntry.product.stocks.toString(),
-                            imageUrl = productEntry.product.imageUrl,
-                            category = productEntry.product.category,
-                            modifiedPrice = productEntry.product.modifiedPrice.toString(),
-                            unavaliable = productEntry.product.unavaliable.toString(),
-                            rating = rating.toString(),
-                            noOfRating = noOfRating.toString(),
-                            discountPercentage = discountPercentage.toString(),
-                            cartCount = cartCount.toString()
-                        )
-                    }
-                }.collect {
-                    state = state.copy(products = it)
+            state = state.copy(isLoading = true)
+            when(repository.clearCart()){
+                is Result.Error -> {
+                    _eventChannel.send(CartScreenEvents.FailedToFetchCarts)
                 }
+                is Result.Success -> {
+                    delay(400)
+                    repository.getCart()
+                        .map {
+                            it.map { productEntry ->
+                                val rating = getRandomNum(5)
+                                val noOfRating = getRandomNum(1000)
+                                val discountPercentage = calculateDiscountPercentage(
+                                    productEntry.product.basePrice,
+                                    productEntry.product.modifiedPrice
+                                )
+                                val cartCount = productEntry.quantity
+                                ProductCartItem(
+                                    id = Random.nextInt().toString(),
+                                    productId = productEntry.product.productId,
+                                    productName = productEntry.product.productName,
+                                    basePrice = productEntry.product.basePrice.toString(),
+                                    stocks = productEntry.product.stocks.toString(),
+                                    imageUrl = productEntry.product.imageUrl,
+                                    category = productEntry.product.category,
+                                    modifiedPrice = productEntry.product.modifiedPrice.toString(),
+                                    unavaliable = productEntry.product.unavaliable.toString(),
+                                    rating = rating.toString(),
+                                    noOfRating = noOfRating.toString(),
+                                    discountPercentage = discountPercentage.toString(),
+                                    cartCount = cartCount.toString()
+                                )
+                            }
+                        }.collect {
+                            state = state.copy(products = it, isLoading = false)
+                        }
+                }
+            }
+
         }
 
         repository.getAllAddress()
@@ -141,6 +154,30 @@ class CartScreenViewModel(
             }
 
             is CartActions.ConfirmAndPurchaseClicked -> {
+                if (state.email.isBlank() || state.number.isBlank()) {
+                    viewModelScope.launch {
+                        _eventChannel.send(CartScreenEvents.Failure(UiText.DynamicString("Please enter email and number")))
+                    }
+                    return
+                }
+                if (!Patterns.EMAIL_ADDRESS.matcher(state.email).matches()){
+                    viewModelScope.launch {
+                        _eventChannel.send(CartScreenEvents.Failure(UiText.DynamicString("Please enter valid email")))
+                    }
+                    return
+                }
+                if (!Patterns.PHONE.matcher(state.number).matches()) {
+                    viewModelScope.launch {
+                        _eventChannel.send(CartScreenEvents.Failure(UiText.DynamicString("Please enter valid number")))
+                    }
+                    return
+                }
+                if (state.addressId == -1) {
+                    viewModelScope.launch {
+                        _eventChannel.send(CartScreenEvents.Failure(UiText.DynamicString("Please select address")))
+                    }
+                    return
+                }
                 viewModelScope.launch {
                     val response =
                         repository.initialisePayment(addressId = state.addressId)
@@ -159,6 +196,17 @@ class CartScreenViewModel(
                         }
                     }
                 }
+            }
+
+            is CartActions.EnteredEmail -> {
+                state = state.copy(
+                    email = event.email
+                )
+            }
+            is CartActions.EnteredNumber -> {
+                state = state.copy(
+                    number = event.number
+                )
             }
         }
     }

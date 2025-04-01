@@ -79,6 +79,12 @@ class ShopRepositoryImpl(
         return localDataSource.getCart()
     }
 
+    override suspend fun clearCart(): EmptyResult<DataError.Local> {
+        return  applicationScope.async {
+            localDataSource.clearCart()
+        }.await()
+    }
+
     override suspend fun addToCart(product: ProductCart): EmptyResult<DataError> {
         val result =
             applicationScope.async { remoteDataSource.addToCart(product.productId) }.await()

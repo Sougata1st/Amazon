@@ -14,5 +14,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(projects.shopping.domain)
-    implementation("com.razorpay:checkout:1.6.41")
+    implementation(libs.checkout)
+    implementation(libs.lottie.compose)
 }

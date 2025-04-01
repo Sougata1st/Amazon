@@ -1,6 +1,7 @@
 package com.sougata.shopping.domain.dataSource
 
 import com.sougata.core.domain.util.DataError
+import com.sougata.core.domain.util.EmptyResult
 import com.sougata.core.domain.util.Result
 import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.domain.models.Product
@@ -27,5 +28,6 @@ interface ShopLocalDataSource {
     suspend fun deleteAddress(addressId: Int)
     fun getFilteredProducts(order: String): Flow<List<Product>>
     suspend fun clearFilterItems()
+    suspend fun clearCart(): EmptyResult <DataError.Local>
 
 }

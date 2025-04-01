@@ -38,7 +38,7 @@ data class Order(
     val transactionId: String,
     val status: String,
     val products: List<ProductOrder>,
-    val address: AddressDto
+    val address: AddressDtox
 )
 
 @Serializable
@@ -61,7 +61,7 @@ data class ProductResponse02(
 )
 
 @Serializable
-data class AddressDto(
+data class AddressDtox(
     val locality: String,
     val landmark: String,
     val state: String,
@@ -133,7 +133,7 @@ fun ProductResponse02.toDomain(): com.sougata.shopping.domain.models.ProductResp
     )
 }
 
-fun AddressDto.toDomain(): Address2 {
+fun AddressDtox.toDomain(): Address2 {
     return Address2(
         locality = locality,
         landmark = landmark,

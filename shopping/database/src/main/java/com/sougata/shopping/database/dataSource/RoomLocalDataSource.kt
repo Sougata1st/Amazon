@@ -2,6 +2,7 @@ package com.sougata.shopping.database.dataSource
 
 import android.database.sqlite.SQLiteException
 import com.sougata.core.domain.util.DataError
+import com.sougata.core.domain.util.EmptyResult
 import com.sougata.core.domain.util.Result
 import com.sougata.shopping.database.dao.ProductDao
 import com.sougata.shopping.database.entity.ProductCategoryEntity
@@ -207,6 +208,15 @@ class RoomLocalDataSource(
 
     override suspend fun clearFilterItems() {
         dao.clearAllProducts()
+    }
+
+    override suspend fun clearCart(): EmptyResult<DataError.Local> {
+        return try {
+            dao.clearCart()
+            Result.Success(Unit)
+        }catch (e: SQLiteException){
+            Result.Error(DataError.Local.DISK_FULL)
+        }
     }
 
 }

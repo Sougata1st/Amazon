@@ -85,6 +85,7 @@ class MainActivity : ComponentActivity(), PaymentResultWithDataListener {
                 val response = RetrofitClient.paymentApiService.processPayment(request)
 
                 if (response.isSuccessful) {
+                    repository.clearCart()
                     runOnUiThread {
                         Toast.makeText(
                             this@MainActivity,
@@ -123,11 +124,20 @@ class MainActivity : ComponentActivity(), PaymentResultWithDataListener {
         super.onStart()
         lifecycleScope.launch {
             withContext(Dispatchers.IO+ NonCancellable){
-                productDao.clearCart()
+                repository.clearCart()
             }
 
             withContext(Dispatchers.IO+ NonCancellable){
                 productDao.deleteAllProducts()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO + NonCancellable) {
+                repository.fetchAllProducts(0, 10)
             }
         }
     }

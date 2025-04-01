@@ -7,18 +7,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sougata.core.domain.SessionStorage
+import com.sougata.shopping.domain.repository.ShopRepository
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 
-class ProfileScreenViewModel(val sessionStorage: SessionStorage): ViewModel() {
+class ProfileScreenViewModel(val sessionStorage: SessionStorage,val repository: ShopRepository): ViewModel() {
     val state by mutableStateOf(ProfileScreenState())
 
     private val _eventChannel = Channel<ProfileScreenEvents>()
     val events = _eventChannel.receiveAsFlow()
 
+    init {
+        viewModelScope.launch { repository.fetchAllAddresses() }
+    }
     fun onAction(actions: ProfileScreenActions){
         when(actions){
             ProfileScreenActions.SignOutClicked -> {

@@ -1,5 +1,11 @@
 package com.sougata.shopping.presentation.homeRoot.orders
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,22 +24,29 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.sougata.core.presentation.designsystem.AmazonBlack
 import com.sougata.core.presentation.designsystem.AmazonWhite
 import com.sougata.core.presentation.designsystem.AmazonYellow
+import com.sougata.shopping.presentation.R
 import com.sougata.shopping.presentation.homeRoot.cart.util.formatDateTime
 import org.koin.androidx.compose.koinViewModel
 
@@ -42,11 +55,64 @@ fun OrderListScreen(viewModel: OrderViewModel = koinViewModel()) {
     when {
         viewModel.state.isLoading -> {
             Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-                CircularProgressIndicator()
+                Column (
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+                    val progress by animateLottieCompositionAsState(
+                        composition,
+                        iterations = LottieConstants.IterateForever
+                    )
+
+                    LottieAnimation(
+                        composition = composition,
+                        progress = { progress },
+                        modifier = Modifier.size(200.dp)
+                    )
+                    Spacer(Modifier.height(10.dp))
+
+                    val alpha by rememberInfiniteTransition().animateFloat(
+                        initialValue = 0.3f,
+                        targetValue = 1f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(durationMillis = 1000, easing = LinearEasing),
+                            repeatMode = RepeatMode.Reverse
+                        )
+                    )
+
+                    Text(
+                        text = "Your orders are loading..",
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .graphicsLayer(alpha = alpha)
+                    )
+                }
             }
         }
         viewModel.state.orders.isEmpty() -> {
-            Text(text = "No orders available", style = MaterialTheme.typography.bodyMedium, color = AmazonBlack)
+            Column (
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.empty))
+                val progress by animateLottieCompositionAsState(
+                    composition,
+                    iterations = LottieConstants.IterateForever
+                )
+
+                LottieAnimation(
+                    composition = composition,
+                    progress = { progress },
+                    modifier = Modifier.size(300.dp)
+                )
+                Spacer(Modifier.height(10.dp))
+
+                Text(text = "No orders available", style = MaterialTheme.typography.bodyMedium, color = AmazonBlack,fontWeight = FontWeight.Bold)
+            }
         }
         else -> {
             LazyColumn {

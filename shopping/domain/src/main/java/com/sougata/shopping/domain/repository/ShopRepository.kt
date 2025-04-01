@@ -19,6 +19,7 @@ interface ShopRepository {
     suspend fun deleteAllProducts()
     suspend fun fetchAllProducts(pageNo:Int, pageSize:Int) : EmptyResult<DataError>
     fun getCart(): Flow<List<ProductEntry>>
+    suspend fun clearCart(): EmptyResult<DataError.Local>
     suspend fun addToCart(product:ProductCart) : EmptyResult<DataError>
     suspend fun deleteWholeProductFromCart(productId:String) : EmptyResult<DataError>
     suspend fun removeOneProductFromCart(productId:String) : EmptyResult<DataError>

@@ -4,6 +4,7 @@ import com.sougata.shopping.domain.models.AddressResponse
 import com.sougata.shopping.presentation.homeRoot.util.ProductCartItem
 
 data class CartScreenState(
+    val isLoading: Boolean = false,
     val products: List<ProductCartItem> = emptyList(),
     val cartAddRemove: CartAddRemove = CartAddRemove(),
     val totalSUm:Double = 0.0,
@@ -11,7 +12,9 @@ data class CartScreenState(
     val addressId:Int = -1,
     val amount: Int = 0,
     val key: String = "",
-    val orderId: String = ""
+    val orderId: String = "",
+    val email: String ="",
+    val number: String = ""
 )
 
 class CartAddRemove(val cartItemId : String = "",val isDeleting: Boolean = false )

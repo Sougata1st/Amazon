@@ -14,12 +14,14 @@ lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
 appcompat = "1.7.0"
+lottieCompose = "6.1.0"
 material = "1.12.0"
 androidTools = "31.2.2"
 ksp = "2.0.0-1.0.22"
 materialIconsExtendedVersion = "1.7.6"
 navigationComposeVersion = "2.8.5"
 playServicesLocation = "21.3.0"
+retrofit = "2.11.0"
 room = "2.6.1"
 desugar_jdk_libs = "2.1.2"
 jetbrainsKotlinJvm = "2.0.0"
@@ -44,9 +46,12 @@ securityCryptoKtx = "1.0.0"
 
 [libraries]
 checkout = { module = "com.razorpay:checkout", version.ref = "checkout" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json-v180 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

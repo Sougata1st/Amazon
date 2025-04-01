@@ -41,7 +41,14 @@ class HomeScreenViewModel(
             repository.fetchAllAddresses()
         }
         viewModelScope.launch {
-            repository.fetchAllCarts()
+            when(repository.clearCart()){
+                is Result.Error -> {
+                    _eventChannel.send(HomeScreenEvents.Failure(UiText.DynamicString("Error in fetching cart")))
+                }
+                is Result.Success -> {
+                    repository.fetchAllCarts()
+                }
+            }
         }
 
         viewModelScope.launch {

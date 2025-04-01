@@ -45,6 +45,7 @@ class FilterResultScreenViewModel(
         upperPriceBound = savedStateHandle["upperPriceBound"] ?: Int.MAX_VALUE
 
         viewModelScope.launch {
+            state = state.copy(isLoading = true)
             repository.fetchAllFilteredProducts(
                 pageNo,
                 pageSize,
@@ -54,6 +55,7 @@ class FilterResultScreenViewModel(
                 lowerPriceBound,
                 upperPriceBound
             )
+            state = state.copy(isLoading = false)
         }
 
         viewModelScope.launch {
