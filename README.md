@@ -41,50 +41,50 @@ Once the response is **OK**, you can proceed with using the app.
 
 ### 🔑 Authentication Screens
 - **Intro Screen**  
-  ![Intro Screen](screenshots/intro_screen.png)
+  <img src="screenshots/intro_screen.png" alt="Intro Screen" width="300px">
 - **Login Screen**  
-  ![Login Screen](screenshots/login_screen.png) ![Login Screen 2](screenshots/login_screen_2.png)
+  <img src="screenshots/login_screen.png" alt="Login Screen" width="300px"> <img src="screenshots/login_screen_2.png" alt="Login Screen 2" width="300px">
 - **Registration Screen**  
-  ![Registration Screen](screenshots/registration_screen_1.png) ![Registration Screen 2](screenshots/registration_screen_2.png)
+  <img src="screenshots/registration_screen_1.png" alt="Registration Screen" width="300px"> <img src="screenshots/registration_screen_2.png" alt="Registration Screen 2" width="300px">
 - **Forgot Password - OTP Verification**  
-  ![OTP Screen](screenshots/otp_screen_1.png) ![OTP Screen 2](screenshots/otp_screen_2.png)  
+  <img src="screenshots/otp_screen_1.png" alt="OTP Screen" width="300px"> <img src="screenshots/otp_screen_2.png" alt="OTP Screen 2" width="300px">  
   📧 **Received OTP Email**  
-  ![OTP Mail](screenshots/otp_mail.png)
+  <img src="screenshots/otp_mail.png" alt="OTP Mail" width="300px">
 - **Change Password**  
-  ![Change Password](screenshots/change_password_1.png)
+  <img src="screenshots/change_password_1.png" alt="Change Password" width="300px">
 
 ### 🛍️ Shopping Screens
 - **Home Screen**  
-  ![Home Screen](screenshots/home_screen.png)
+  <img src="screenshots/home_screen.png" alt="Home Screen" width="300px">
 - 🎥 **Home Screen - GIF (Auto Play)**  
-  ![Home GIF](screenshots/home_screen.gif)
+  <img src="screenshots/home_screen.gif" alt="Home GIF" width="300px">
 - **Filter Screens**  
-  ![Filter 1](screenshots/filter_1.png) ![Filter 2](screenshots/filter_2.png)  
-  ![Filter 3](screenshots/filter_3.png) ![Filter 4](screenshots/filter_4.png)
+  <img src="screenshots/filter_1.png" alt="Filter 1" width="300px"> <img src="screenshots/filter_2.png" alt="Filter 2" width="300px">  
+  <img src="screenshots/filter_3.png" alt="Filter 3" width="300px"> <img src="screenshots/filter_4.png" alt="Filter 4" width="300px">
 - **Filter Result Screen**  
-  ![Filter Result](screenshots/filter_result.png)
+  <img src="screenshots/filter_result.png" alt="Filter Result" width="300px">
 - 🎥 **Filter Screen - GIF (Auto Play)**  
-  ![Filter GIF](screenshots/filter_screen.gif)
+  <img src="screenshots/filter_screen.gif" alt="Filter GIF" width="300px">
 
 ### 🛒 Cart & Checkout Screens
 - **Cart Screen**  
-  ![Cart Screen](screenshots/cart_screen.png)
+  <img src="screenshots/cart_screen.png" alt="Cart Screen" width="300px">
 - 🏷️ **Checkout (Bottom Sheet for Address & Contact Details)**  
-  ![Checkout](screenshots/checkout_screen.png)
+  <img src="screenshots/checkout_screen.png" alt="Checkout" width="300px">
 - 💳 **Payment (Razorpay UPI & Card Demo)**  
-  🎥 ![Payment GIF](screenshots/payment.gif)
+  🎥 <img src="screenshots/payment.gif" alt="Payment GIF" width="300px">
 
 ### 📦 Orders & Profile Screens
 - **Orders Page**  
-  ![Orders Page](screenshots/order_page.png)
+  <img src="screenshots/order_page.png" alt="Orders Page" width="300px">
 - **Profile Page**  
-  ![Profile Page](screenshots/profile_page.png)
+  <img src="screenshots/profile_page.png" alt="Profile Page" width="300px">
 - **Add Address**  
-  ![Add Address](screenshots/add_address.png)
+  <img src="screenshots/add_address.png" alt="Add Address" width="300px">
 - **View Addresses**  
-  ![View Addresses](screenshots/view_address.png)
+  <img src="screenshots/view_address.png" alt="View Addresses" width="300px">
 - **Logout (Redirect to Intro Screen)**  
-  🎥 ![Logout GIF](screenshots/logout.gif)
+  🎥 <img src="screenshots/logout.gif" alt="Logout GIF" width="300px">
 
 ---
 
