@@ -61,8 +61,7 @@ Once the response is **OK**, you can proceed with using the app.
 - **Filter Screens**  
   <img src="screenshots/filter_1.png" alt="Filter 1" width="300px"> <img src="screenshots/filter_2.png" alt="Filter 2" width="300px">  
   <img src="screenshots/filter_3.png" alt="Filter 3" width="300px"> <img src="screenshots/filter_4.png" alt="Filter 4" width="300px">
-- **Filter Result Screen**  
-  <img src="screenshots/filter_result.png" alt="Filter Result" width="300px">
+
 - 🎥 **Filter Screen - GIF (Auto Play)**  
   <img src="screenshots/filter_screen.gif" alt="Filter GIF" width="300px">
 
