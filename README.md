@@ -90,7 +90,7 @@ Once the response is **OK**, you can proceed with using the app.
 ## 🛠️ Setup & Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/your-repo.git
+   git clone https://github.com/Sougata1st/Amazon.git
    ```
 2. Navigate to the project folder:
    ```sh
