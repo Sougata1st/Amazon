@@ -36,56 +36,55 @@ Once the response is OK, you can proceed with using the app.
 ## Screenshots
 
 ### Authentication Screens
-- **Intro Screen**
-  ![Intro Screen](screenshots/intro_screen.png)
-- **Login Screen**
-  ![Login Screen 1](screenshots/login_screen.png)
-  ![Login Screen 2](screenshots/login_screen_2.png)
-- **Registration Screen**
-  ![Registration Screen 1](screenshots/registration_screen_1.png)
-  ![Registration Screen 2](screenshots/registration_screen_2.png)
-- **Forgot Password - OTP Verification**
-  ![OTP Screen 1](screenshots/otp_screen_1.png)
-  ![OTP Screen 2](screenshots/otp_screen_2.png)
-  ![OTP Mail Screenshot](screenshots/otp_mail.png)
-- **Change Password**
-  ![Change Password 1](screenshots/change_password_1.png)
+- **Intro Screen**  
+  <img src="screenshots/intro_screen.png" width="300">
+- **Login Screen**  
+  <img src="screenshots/login_screen.png" width="300">
+  <img src="screenshots/login_screen_2.png" width="300">
+- **Registration Screen**  
+  <img src="screenshots/registration_screen_1.png" width="300">
+  <img src="screenshots/registration_screen_2.png" width="300">
+- **Forgot Password - OTP Verification**  
+  <img src="screenshots/otp_screen_1.png" width="300">
+  <img src="screenshots/otp_screen_2.png" width="300">
+  <img src="screenshots/otp_mail.png" width="300">
+- **Change Password**  
+  <img src="screenshots/change_password_1.png" width="300">
 
 ### Shopping Screens
-- **Home Screen**
-  ![Home Screen](screenshots/home_screen.png)
-- **Home Screen - GIF (Auto Play)**
-  ![Home GIF](screenshots/home_screen.gif)
-- **Filter Screen**
-  ![Filter 1](screenshots/filter_1.png)
-  ![Filter 2](screenshots/filter_2.png)
-  ![Filter 3](screenshots/filter_3.png)
-  ![Filter 4](screenshots/filter_4.png)
-- **Filter Result Screen**
-  ![Filter Result](screenshots/filter_result.png)
-- **Filter Screen - GIF (Auto Play)**
-  ![Filter GIF](screenshots/filter_screen.gif)
+- **Home Screen**  
+  <img src="screenshots/home_screen.png" width="300">
+- **Home Screen - GIF (Auto Play)**  
+  <img src="screenshots/home_screen.gif" width="300">
+- **Filter Screen**  
+  <img src="screenshots/filter_1.png" width="300">
+  <img src="screenshots/filter_2.png" width="300">
+  <img src="screenshots/filter_3.png" width="300">
+  <img src="screenshots/filter_4.png" width="300">
+- **Filter Result Screen**  
+  <img src="screenshots/filter_result.png" width="300">
+- **Filter Screen - GIF (Auto Play)**  
+  <img src="screenshots/filter_screen.gif" width="300">
 
 ### Cart & Checkout Screens
-- **Cart Screen**
-  ![Cart Screen](screenshots/cart_screen.png)
-- **Checkout (Bottom Sheet for Address & Contact)**
-  ![Checkout Screen](screenshots/checkout_screen.png)
-- **Payment (Razorpay UPI & Card Demo)**
-  ![Payment GIF](screenshots/payment.gif)
+- **Cart Screen**  
+  <img src="screenshots/cart_screen.png" width="300">
+- **Checkout (Bottom Sheet for Address & Contact)**  
+  <img src="screenshots/checkout_screen.png" width="300">
+- **Payment (Razorpay UPI & Card Demo)**  
+  <img src="screenshots/payment.gif" width="300">
 
 ### Orders & Profile Screens
-- **Orders Page**
-  ![Orders Page](screenshots/order_page.png)
-- **Profile Page**
-  ![Profile Page](screenshots/profile_page.png)
-- **Add Address**
-  ![Add Address 1](screenshots/add_address.png)
-
-- **View Addresses**
-  ![View Addresses](screenshots/view_address.png)
-- **Logout (Redirect to Intro Screen)**
-  ![Logout](screenshots/logout.gif)
+- **Orders Page**  
+  <img src="screenshots/order_page.png" width="300">
+- **Profile Page**  
+  <img src="screenshots/profile_page.png" width="300">
+- **Add Address**  
+  <img src="screenshots/add_address.png" width="300">
+- **View Addresses**  
+  <img src="screenshots/view_address.png" width="300">
+- **Logout (Redirect to Intro Screen)**  
+  <img src="screenshots/logout.gif" width="300">
 
 ## Setup & Installation
 1. Clone the repository:
